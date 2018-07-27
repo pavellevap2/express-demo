@@ -1,17 +1,16 @@
-var webpack = require("webpack");
-var path = require("path");
+const path = require("path");
 
-var BUILD_DIR = path.resolve(__dirname, "./build");
-var APP_DIR = path.resolve(__dirname, "./src/client");
+const BUILD_DIR = path.resolve(__dirname, "./build");
 
 const config = {
   entry: {
-    main: APP_DIR + "/index.js"
+    main: "./src/client/index.js"
   },
   output: {
     filename: "bundle.js",
     path: BUILD_DIR
   },
+  mode: "development",
   module: {
     rules: [
       {
