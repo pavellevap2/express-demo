@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/server/index.js",
+    "start": "nodemon server/index.js",
     "webpack": "./node_modules/.bin/webpack -w"
   },
   "repository": {
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/pavellevap2/express-demo#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "nodemon": "^1.18.3",
     "react": "^16.4.1",

@@ -1,10 +1,10 @@
 const path = require("path");
 
-const BUILD_DIR = path.resolve(__dirname, "./build");
+const BUILD_DIR = path.resolve(__dirname, "./public");
 
 const config = {
   entry: {
-    main: "./src/client/index.js"
+    main: "./client/index.js"
   },
   output: {
     filename: "bundle.js",
