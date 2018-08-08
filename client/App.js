@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import Form from "./Form";
 
 class App extends Component {
   render() {
-    return <h1 style={{ color: "blue" }}>Hello world</h1>;
+    return <Form />;
   }
 }
 
