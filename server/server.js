@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const HTTP = require("http");
 const bodyParser = require("body-parser");
 const process = require("process");
 const cookieParser = require("cookie-parser");
@@ -27,6 +28,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(authRouter);
+
+app.use((err, req, res, next) => {
+  res.status(500);
+  res.json({ message: HTTP.STATUS_CODES[500] });
+});
 
 const PORT = 8080;
 
