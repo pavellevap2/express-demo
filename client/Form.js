@@ -17,13 +17,15 @@ class Form extends React.Component {
 
     fetch("http://localhost:8080/api/signUp", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         password,
         email
       })
     })
+      .then(res => res.json())
       .then(res => {
-        console.log(res, "res");
+        console.log(res);
       })
       .catch(err => console.log("error", err));
 

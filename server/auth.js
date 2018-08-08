@@ -28,8 +28,8 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-router.post("api/signUp", function(req, res) {
-  console.log(req.body.username, "here");
+router.post("/api/signUp", function(req, res, next) {
+  console.log(req.body, "here");
   const user = {
     email: req.body.email,
     password: req.body.password,
