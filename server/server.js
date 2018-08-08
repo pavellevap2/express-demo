@@ -11,19 +11,20 @@ const app = express();
 
 app.use("/public", express.static(path.join(__dirname, "../public")));
 
+app.use(bodyParser.json({}));
+
 app.use(
   bodyParser.urlencoded({
     extended: true
   })
 );
-app.use(bodyParser.json({}));
 
 app.use(cookieParser());
 
 app.use(session({ name: "session", secret: "SECRET" }));
 
-passport.use(passport.initialize());
-passport.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(authRouter);
 
