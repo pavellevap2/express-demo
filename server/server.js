@@ -7,10 +7,11 @@ const cookieParser = require("cookie-parser");
 const session = require("cookie-session");
 const passport = require("passport");
 const authRouter = require("./auth");
+const { renderLayout } = require("./template");
 
 const app = express();
 
-app.use("/public", express.static(path.join(__dirname, "../public")));
+app.use("/public", express.static(path.resolve(__dirname, "../public")));
 
 app.use(bodyParser.json({}));
 
@@ -28,6 +29,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(authRouter);
+
+app.get("*", (req, res, next) => {
+  console.log("endpoint", req.url, req.user);
+  res.status(200);
+  res.send(renderLayout({ me: req.user }));
+});
 
 app.use((err, req, res, next) => {
   res.status(500);

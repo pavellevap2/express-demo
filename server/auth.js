@@ -41,8 +41,11 @@ passport.serializeUser((user, next) => {
 
 passport.deserializeUser((id, next) => {
   console.log("deserializeUser");
-  if (db.users[id]) next(null, db.users[id]);
-  else next(null, {});
+  if (db.users[id]) {
+    next(null, db.users[id]);
+  } else {
+    next(null, {});
+  }
 });
 
 router.post("/api/signUp", (req, res, next) => {
