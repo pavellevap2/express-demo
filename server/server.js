@@ -31,7 +31,7 @@ app.use(passport.session());
 app.use(authRouter);
 
 app.get("*", (req, res, next) => {
-  console.log("endpoint", req.url, req.user);
+  console.log("endpoint", req.url);
   res.status(200);
   res.send(renderLayout({ me: req.user }));
 });

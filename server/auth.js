@@ -1,19 +1,11 @@
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
+const { Strategy: LocalStrategy } = require("passport-local");
+const { findByCredentials, updateDataBase } = require("../common/helpers");
 const express = require("express");
-const R = require("ramda");
 const db = require("../db");
 const FS = require("fs");
-const uniqid = require("uniqid");
 
 const router = express.Router();
-
-function findByCredentials(email, password, users) {
-  return R.find(
-    user => user.email == email && user.password == password,
-    R.values(users)
-  );
-}
 
 passport.use(
   new LocalStrategy(
@@ -21,7 +13,7 @@ passport.use(
       usernameField: "email",
       passwordField: "password"
     },
-    (email, password, next) => {
+    (password, email, next) => {
       console.log("verifyCredentials");
       const user = findByCredentials(email, password, db.users);
 
@@ -41,6 +33,7 @@ passport.serializeUser((user, next) => {
 
 passport.deserializeUser((id, next) => {
   console.log("deserializeUser");
+
   if (db.users[id]) {
     next(null, db.users[id]);
   } else {
@@ -50,14 +43,13 @@ passport.deserializeUser((id, next) => {
 
 router.post("/api/signUp", (req, res, next) => {
   console.log("signUpUser");
+
   const user = {
     email: req.body.email,
     password: req.body.password
   };
 
-  const userId = uniqid();
-  const updatedDb = R.assoc(userId, { id: userId, ...user }, db.users);
-  const jsonData = JSON.stringify(updatedDb, null, 2);
+  const jsonData = JSON.stringify(updateDataBase(user, db), null, 2);
 
   FS.writeFile("./db/users.json", jsonData, "utf-8", err => {
     if (err) next(err);
@@ -68,6 +60,7 @@ router.post("/api/signUp", (req, res, next) => {
 
 router.post("/api/signIn", (req, res, next) => {
   console.log("signIn");
+
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
     if (!user) {
