@@ -10,6 +10,7 @@ class Form extends React.Component {
   }
 
   render() {
+    console.log("here we are");
     const { password, email } = this.state;
     const { title } = this.props;
 

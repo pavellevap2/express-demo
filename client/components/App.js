@@ -1,15 +1,24 @@
+import "regenerator-runtime/runtime";
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import SignInForm from "./SignInForm";
-import SignUpForm from "./SignUpForm";
+import { SignupFormContainer, SigninFormContainer } from "../containers";
 import MainPage from "./MainPage";
 
-const App = () => (
-  <Switch>
-    <Route exact path="/" component={MainPage} />
-    <Route path="/signin" component={SignInForm} />
-    <Route path="/signup" component={SignUpForm} />
-  </Switch>
-);
+class App extends React.Component {
+  componentDidMount() {
+    console.log(this.props, "here");
+    this.props.initializeRequest();
+  }
+
+  render() {
+    return (
+      <Switch>
+        <Route exact path="/" component={MainPage} />
+        <Route path="/signin" component={SigninFormContainer} />
+        <Route path="/signup" component={SignupFormContainer} />
+      </Switch>
+    );
+  }
+}
 
 export default App;
