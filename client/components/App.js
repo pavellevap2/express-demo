@@ -6,9 +6,9 @@ import MainPage from "./MainPage";
 
 const App = () => (
   <Switch>
-    <Route exact path="/public" component={MainPage} />
-    <Route path="/public/signin" component={SignInForm} />
-    <Route path="/public/signup" component={SignUpForm} />
+    <Route exact path="/" component={MainPage} />
+    <Route path="/signin" component={SignInForm} />
+    <Route path="/signup" component={SignUpForm} />
   </Switch>
 );
 

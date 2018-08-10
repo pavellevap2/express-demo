@@ -10,10 +10,13 @@ export const makeSignIn = (email, password) =>
     })
   })
     .then(res => res.status)
-    .catch(err => console.log("error", err, err.status));
+    .catch(err => {
+      console.log("error", err, err.status);
+    });
 
-export const makeSignUp = (email, password) =>
-  fetch(ENDPOINTS.SIGNUP, {
+export const makeSignUp = (email, password) => {
+  console.log(email, password, "data");
+  return fetch(ENDPOINTS.SIGNUP, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -23,3 +26,4 @@ export const makeSignUp = (email, password) =>
   })
     .then(res => res)
     .catch(err => err.status);
+};

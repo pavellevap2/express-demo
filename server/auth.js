@@ -41,26 +41,8 @@ passport.deserializeUser((id, next) => {
   }
 });
 
-router.post("/api/signUp", (req, res, next) => {
-  console.log("signUpUser");
-
-  const user = {
-    email: req.body.email,
-    password: req.body.password
-  };
-
-  const jsonData = JSON.stringify(updateDataBase(user, db), null, 2);
-
-  FS.writeFile("./db/users.json", jsonData, "utf-8", err => {
-    if (err) next(err);
-    res.status(200);
-    res.json(user);
-  });
-});
-
 router.post("/api/signIn", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
-    console.log(req, res, next, err, user, info);
     if (err) return next(err);
 
     if (!user) {
@@ -74,6 +56,23 @@ router.post("/api/signIn", (req, res, next) => {
       return res.json(user);
     });
   })(req, res, next);
+});
+
+router.post("/api/signUp", (req, res, next) => {
+  console.log("signUpUser", req.body);
+
+  const user = {
+    email: req.body.email,
+    password: req.body.password
+  };
+
+  const jsonData = JSON.stringify(updateDataBase(user, db), null, 2);
+
+  FS.writeFile("./db/users.json", jsonData, "utf-8", err => {
+    if (err) next(err);
+    res.status(200);
+    res.json(user);
+  });
 });
 
 module.exports = router;
