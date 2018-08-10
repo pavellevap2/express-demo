@@ -178,7 +178,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _reactDom = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n\nvar _reactDom2 = _interopRequireDefault(_reactDom);\n\nvar _reactRouterDom = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/es/index.js\");\n\nvar _components = __webpack_require__(/*! ./components */ \"./client/components/index.js\");\n\nvar _history = __webpack_require__(/*! history */ \"./node_modules/history/es/index.js\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar history = (0, _history.createBrowserHistory)();\n\n_reactDom2.default.render(_react2.default.createElement(\n  _reactRouterDom.Router,\n  { history: history },\n  _react2.default.createElement(_components.App, null)\n), document.getElementById(\"root\"));\n\n//# sourceURL=webpack:///./client/index.js?");
+eval("\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nvar _react2 = _interopRequireDefault(_react);\n\nvar _reactDom = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n\nvar _reactDom2 = _interopRequireDefault(_reactDom);\n\nvar _reactRouterDom = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/es/index.js\");\n\nvar _components = __webpack_require__(/*! ./components */ \"./client/components/index.js\");\n\nvar _navigation = __webpack_require__(/*! ./navigation */ \"./client/navigation.js\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n_reactDom2.default.render(_react2.default.createElement(\n  _reactRouterDom.Router,\n  { history: _navigation.history },\n  _react2.default.createElement(_components.App, null)\n), document.getElementById(\"root\"));\n\n//# sourceURL=webpack:///./client/index.js?");
 
 /***/ }),
 
@@ -190,7 +190,7 @@ eval("\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/i
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.makeSignUp = exports.makeSignIn = undefined;\n\nvar _api = __webpack_require__(/*! ../api */ \"./client/api.js\");\n\nvar _api2 = _interopRequireDefault(_api);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar makeSignIn = exports.makeSignIn = function makeSignIn(email, password) {\n  return fetch(_api2.default.SIGNIN, {\n    method: \"POST\",\n    headers: { \"Content-Type\": \"application/json\" },\n    body: JSON.stringify({\n      password: password,\n      email: email\n    })\n  }).then(function (res) {\n    return res.json();\n  }).then(function (res) {\n    console.log(res);\n  }).catch(function (err) {\n    return console.log(\"error\", err);\n  });\n};\n\nvar makeSignUp = exports.makeSignUp = function makeSignUp(email, password) {\n  return fetch(_api2.default.SIGNUP, {\n    method: \"POST\",\n    headers: { \"Content-Type\": \"application/json\" },\n    body: JSON.stringify({\n      password: password,\n      email: email\n    })\n  }).then(function (res) {\n    return res.json();\n  }).then(function (res) {\n    console.log(res);\n  }).catch(function (err) {\n    return err.status;\n  });\n};\n\n//# sourceURL=webpack:///./client/managers/auth.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.makeSignUp = exports.makeSignIn = undefined;\n\nvar _api = __webpack_require__(/*! ../api */ \"./client/api.js\");\n\nvar _api2 = _interopRequireDefault(_api);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar makeSignIn = exports.makeSignIn = function makeSignIn(email, password) {\n  return fetch(_api2.default.SIGNIN, {\n    method: \"POST\",\n    headers: { \"Content-Type\": \"application/json\" },\n    body: JSON.stringify({\n      password: password,\n      email: email\n    })\n  }).then(function (res) {\n    return res.status;\n  }).catch(function (err) {\n    return console.log(\"error\", err, err.status);\n  });\n};\n\nvar makeSignUp = exports.makeSignUp = function makeSignUp(email, password) {\n  return fetch(_api2.default.SIGNUP, {\n    method: \"POST\",\n    headers: { \"Content-Type\": \"application/json\" },\n    body: JSON.stringify({\n      password: password,\n      email: email\n    })\n  }).then(function (res) {\n    return res;\n  }).catch(function (err) {\n    return err.status;\n  });\n};\n\n//# sourceURL=webpack:///./client/managers/auth.js?");
 
 /***/ }),
 
@@ -203,6 +203,18 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 
 "use strict";
 eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _auth = __webpack_require__(/*! ./auth */ \"./client/managers/auth.js\");\n\nObject.keys(_auth).forEach(function (key) {\n  if (key === \"default\" || key === \"__esModule\") return;\n  Object.defineProperty(exports, key, {\n    enumerable: true,\n    get: function get() {\n      return _auth[key];\n    }\n  });\n});\n\n//# sourceURL=webpack:///./client/managers/index.js?");
+
+/***/ }),
+
+/***/ "./client/navigation.js":
+/*!******************************!*\
+  !*** ./client/navigation.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.goToMainScreen = exports.history = undefined;\n\nvar _history = __webpack_require__(/*! history */ \"./node_modules/history/es/index.js\");\n\nvar history = exports.history = (0, _history.createBrowserHistory)();\n\nvar goToMainScreen = exports.goToMainScreen = function goToMainScreen() {\n  return history.push(\"/public\");\n};\n\n//# sourceURL=webpack:///./client/navigation.js?");
 
 /***/ }),
 

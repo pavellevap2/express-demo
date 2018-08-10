@@ -9,11 +9,8 @@ export const makeSignIn = (email, password) =>
       email
     })
   })
-    .then(res => res.json())
-    .then(res => {
-      console.log(res);
-    })
-    .catch(err => console.log("error", err));
+    .then(res => res.status)
+    .catch(err => console.log("error", err, err.status));
 
 export const makeSignUp = (email, password) =>
   fetch(ENDPOINTS.SIGNUP, {
@@ -24,8 +21,5 @@ export const makeSignUp = (email, password) =>
       email
     })
   })
-    .then(res => res.json())
-    .then(res => {
-      console.log(res);
-    })
+    .then(res => res)
     .catch(err => err.status);

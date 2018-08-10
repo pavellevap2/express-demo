@@ -59,10 +59,10 @@ router.post("/api/signUp", (req, res, next) => {
 });
 
 router.post("/api/signIn", (req, res, next) => {
-  console.log("signIn");
-
   passport.authenticate("local", (err, user, info) => {
+    console.log(req, res, next, err, user, info);
     if (err) return next(err);
+
     if (!user) {
       res.status(401);
       return res.json(info);
