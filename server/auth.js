@@ -1,9 +1,15 @@
 const passport = require("passport");
+const R = require("ramda");
 const { Strategy: LocalStrategy } = require("passport-local");
-const { findByCredentials, updateDataBase } = require("../common/helpers");
+const {
+  findByCredentials,
+  updateDataBase,
+  findByEmail
+} = require("../common/helpers");
 const express = require("express");
 const db = require("../db");
 const FS = require("fs");
+const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
@@ -14,7 +20,7 @@ passport.use(
       passwordField: "password"
     },
     (password, email, next) => {
-      console.log("verifyCredentials");
+      console.log("verifyCredentials", email, password);
       const user = findByCredentials(email, password, db.users);
 
       if (user) {
@@ -59,19 +65,23 @@ router.post("/api/signIn", (req, res, next) => {
 });
 
 router.post("/api/signUp", (req, res, next) => {
-  console.log("signUpUser", req.body);
+  console.log("signUpUser");
 
-  const user = {
-    email: req.body.email,
-    password: req.body.password
-  };
+  const user = { email: req.body.email, password: req.body.password };
+
+  if (findByEmail(user.email, db.users)) {
+    res.status(409);
+    return res.json({ message: "Duplicate email" });
+  }
 
   const jsonData = JSON.stringify(updateDataBase(user, db), null, 2);
 
   FS.writeFile("./db/users.json", jsonData, "utf-8", err => {
     if (err) next(err);
+
+    const token = jwt.sign(user, "jwt_secret");
     res.status(200);
-    res.json(user);
+    res.json(token);
   });
 });
 

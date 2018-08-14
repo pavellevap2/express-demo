@@ -6,7 +6,6 @@ import MainPage from "./MainPage";
 
 class App extends React.Component {
   componentDidMount() {
-    console.log(this.props, "here");
     this.props.initializeRequest();
   }
 

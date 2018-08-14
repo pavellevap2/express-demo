@@ -10,7 +10,6 @@ class Form extends React.Component {
   }
 
   render() {
-    console.log("here we are");
     const { password, email } = this.state;
     const { title } = this.props;
 
@@ -23,7 +22,7 @@ class Form extends React.Component {
           name="password"
           onChange={this._onChangeInput}
         />
-        <button type="submit">SEND</button>
+        <button tupe="submit">SEND</button>
       </form>
     );
   }
@@ -38,7 +37,7 @@ class Form extends React.Component {
     const { password, email } = this.state;
     const { makeAuth } = this.props;
 
-    makeAuth(password, email);
+    makeAuth({ password, email });
     event.preventDefault();
   };
 }

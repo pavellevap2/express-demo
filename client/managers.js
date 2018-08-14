@@ -23,5 +23,9 @@ export const signup = (email, password) =>
       email
     })
   })
-    .then(res => res)
-    .catch(err => err.status);
+    .then(res => {
+      if (res.status !== 404) {
+        return res.json();
+      }
+    })
+    .catch(err => err);

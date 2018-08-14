@@ -7,10 +7,11 @@ const findByCredentials = (email, password, users) =>
     R.values(users)
   );
 
-const updateDataBase = (user, db) => {
-  const userId = uniqid();
-  return R.assoc(userId, { id: userId, ...user }, db.users);
-};
+const findByEmail = (email, users) => R.find(R.propEq("email", email))(users);
+
+const updateDataBase = (user, db) =>
+  R.append({ id: uniqid(), ...user }, db.users);
 
 exports.findByCredentials = findByCredentials;
 exports.updateDataBase = updateDataBase;
+exports.findByEmail = findByEmail;
